@@ -6,46 +6,46 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    private Connection cnx = null;
+    public static Connection cnx = null;
 
-    public void conectar() throws Exception {
-          try {
-            if (cnx == null) {
-                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                cnx = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;database=DBRIFA","sa", "Quilmana123");
-//                cn = DriverManager.getConnection("jdbc:sqlserver://192.168.13.6:1433;database=REPORTESQLSERVER", "root", "root");
-            }
-        } catch (SQLException e) {
-            throw e;
+    public static Connection conectar() throws Exception {
+        try {
+//            Class.forName("oracle.jdbc.driver.OracleDriver");
+//            cnx = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "KALIDA", "KALIDA");
+//            Class.forName("oracle.jdbc.pool.OracleDataSource");
+//            cnx = DriverManager.getConnection("jdbc:oracle:thin:@kalidaoracle1_tp?TNS_ADMIN=./wallet_KALIDAORACLE1", "ADMIN", "KalidaOracle1");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            // cnx = DriverManager.getConnection("jdbc:sqlserver://127.0.0.1:1433;databaseName=dbServiSoft", "sa", "Administrador2021");
+            cnx = DriverManager.getConnection("jdbc:sqlserver://FernandoCanales;databaseName=dbServiSoft", "sa", "Administrador2021");
+            
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Error: " + e);
         }
-
+        
+        return cnx;
     }
-     //Metodo de cerrar la conexión
-   public void Cerrar() throws Exception {
-       if (cnx != null) {
-           if (cnx.isClosed() == false) {
-               cnx.close();
-               cnx = null;
-           }
-       }
-   }
 
-   public static void main(String[] args) throws Exception {
-       Conexion dao = new Conexion();
-       dao.conectar();
-       if (dao.getCn() != null) {
-           System.out.println("Conectado con éxito");
-       } else {
-           System.err.println("Error en la Conexión");
-       }
-   }
+    public static void cerrarCnx() throws Exception {
+        if(Conexion.cnx != null) {
+            cnx.close();
+        }
+    }
 
-   public Connection getCn() {
-       return cnx;
-   }
+    public static void main(String[] args) throws Exception {
+        conectar();
+        if (cnx != null) {
+            System.out.println("Conectado");
+        } else {
+            System.out.println("Sin Conexión");
+        }
+    }
 
-   public void setCn(Connection cnx) {
-       this.cnx = cnx;
-   }
+    public static Connection getCnx() {
+        return cnx;
+    }
+
+    public static void setCnx(Connection aCnx) {
+        cnx = aCnx;
+    }
 
 }
