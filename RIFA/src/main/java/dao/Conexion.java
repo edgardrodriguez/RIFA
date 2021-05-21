@@ -16,10 +16,10 @@ public class Conexion {
 //            cnx = DriverManager.getConnection("jdbc:oracle:thin:@kalidaoracle1_tp?TNS_ADMIN=./wallet_KALIDAORACLE1", "ADMIN", "KalidaOracle1");
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             // cnx = DriverManager.getConnection("jdbc:sqlserver://127.0.0.1:1433;databaseName=dbServiSoft", "sa", "Administrador2021");
-            cnx = DriverManager.getConnection("jdbc:sqlserver://FernandoCanales;databaseName=dbServiSoft", "sa", "Administrador2021");
+            cnx = DriverManager.getConnection("jdbc:sqlserver://FernandoCanales;databaseName=dbRIFA", "sa", "Administrador2021");
             
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Error: " + e);
+            System.out.println("Error en la conecxión: " + e);
         }
         
         return cnx;
